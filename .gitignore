@@ -1,0 +1,6 @@
+main/react/node_modules/*
+node_modules/
+*.pyc
+.idea/*
+db.sqlite3
+static/
