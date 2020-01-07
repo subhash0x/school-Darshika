@@ -1,0 +1,28 @@
+.ant-upload-list-item-info {
+	color: rgba(255, 0, 255, 0.8);
+	font-size: 15px;
+}
+
+.layout {
+	background: white;
+	height: 100%;
+	min-height: 100vh;
+}
+
+.layout2 {
+	background: rgb(19, 18, 58);
+	height: 100%;
+	min-height: 100vh;
+}
+
+.ant-select-selection {
+	background-color: #1890ff;
+}
+
+.ant-select {
+	color: #fff;
+}
+
+.ant-select-arrow {
+	color: #fff;
+}
