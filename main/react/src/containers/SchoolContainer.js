@@ -11,7 +11,7 @@ class SchoolComponent extends Component {
 
 	render() {
 		return (
-	    	<div className="layout">
+	    	<div>
 		      	<h1>{this.props.school}</h1>
 	        </div>
 	    );

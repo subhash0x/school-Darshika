@@ -79,7 +79,8 @@ class Login extends Component {
 		      	<h1>Hello Diddi!</h1>
 				{
 					this.state.schools.map((value, index) => {
-						return <SchoolComponent school={value}></SchoolComponent>
+						console.log(value);
+						return <SchoolComponent key={value} school={value}></SchoolComponent>
 					})
 				}
 				<Input id="school"/>
