@@ -25,9 +25,13 @@ module.exports = {
   module: {
     rules: [
         {
-            test: /.\js$/,
-            loader: ['babel-loader'],
-            exclude:[/node_modules/],
+            test: /\.less$/,
+            loader: 'less-loader', // compiles Less to CSS
+        },
+        {
+            test: /\.(js|jsx)$/,
+            exclude: /node_modules/,
+            use: ['babel-loader']
         },
         {
             test: /\.css$/,
