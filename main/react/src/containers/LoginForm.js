@@ -16,9 +16,9 @@ class LoginForm extends Component {
     const { getFieldDecorator } = this.props.form;
     return (
 
-        <div className="container" style={{backgroundColor:'blue'}}>
+        <Col span={20}  style={{ display: 'block',  padding: '10px'}}>
 
-        <Col span={16} offset={2}  style={{ display: 'block', margin: '20px'}}>
+            <div className="container" style={{position:'relative', marginLeft:'30px', backgroundColor:'rgb(220,220,220)', padding: '10px', borderRadius:'5px'}}>
 
             <Form onSubmit={this.handleSubmit} className="login-form">
         <Form.Item>
@@ -56,13 +56,8 @@ class LoginForm extends Component {
           Or <a href="">register now!</a>
         </Form.Item>
       </Form>
-
-
-
+                </div>
         </Col>
-
-            </div>
-
 
     );
   }
