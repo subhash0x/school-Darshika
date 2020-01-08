@@ -4,6 +4,12 @@ from django.utils.translation import gettext as _
 
 from main import models
 
+admin.site.register(models.School)
+admin.site.register(models.Notification)
+admin.site.register(models.Subscription)
+admin.site.register(models.Feedback)
+admin.site.register(models.Location)
+
 
 class UserAdmin(BaseUserAdmin):
 	ordering = ['id']

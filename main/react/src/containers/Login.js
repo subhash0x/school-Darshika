@@ -9,6 +9,7 @@ import logo from '../images/logo.png';
 import './capturevideo.css';
 import TestComponent from './TestComponent';
 import SchoolComponent from "./SchoolContainer";
+import APIClient from "../api_client"
 
 
 let videoConstraints = {
@@ -26,13 +27,21 @@ class Login extends Component {
 		super(props);
 		this.state = {
 			showTest: false,
-			schools: [
-				'Apex Publc School',
-				'Navodaya',
-				'DPS'
-			]
+			schools: [],
+			location: null
 		};
 	}
+
+	componentDidMount() {
+		this.loadLocation();
+	}
+
+	componentDidUpdate(prevProps, prevState){
+		if(prevState.location == null && this.state.location != null){
+			this.loadSchools();
+		}
+	}
+
 
 	handleClick = (event) => {
 		let schoolInput = document.getElementById("school");
@@ -44,30 +53,35 @@ class Login extends Component {
 
 	};
 
-	addSchool = (event) => {
 
+	loadLocation = () => {
+		const self = this;
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition((position) => {
+				self.setState({
+					location: {lat: position.coords.latitude, lng: position.coords.longitude}
+				});
+			});
+		} else {
+			alert("Geolocation is not supported by this browser.");
+		}
 	};
+
 
 	loadSchools = (event) => {
 		const self = this;
-
-		axios({
-            method: 'get',
-            url: window.location.protocol + '://'+window.location.hostname + ':' + window.location.port + '/schools',
-            params: {'id': id * 24 + 5},
-            CORS: true,
-        })
-        .then(function (response) {
-            let data = response.data;
-			const { schools } = self.state;
-			for(let school in data){
-				schools.push(school);
+		let params = {lat: this.state.location.lat, lng: this.state.location.lng};
+		APIClient.getSchools(params).then(function (response) {
+				let data = response.data;
+				const { schools } = self.state;
+				for(let i = 0; i<data.length; i++){
+					schools.push(data[i]);
+				}
+				self.setState({
+					schools: schools
+				});
 			}
-			self.setState({
-				schools: schools
-			});
-        })
-        .catch(function (error) {
+		).catch(function (error) {
             console.log(error);
         });
 	};
@@ -80,7 +94,7 @@ class Login extends Component {
 				{
 					this.state.schools.map((value, index) => {
 						console.log(value);
-						return <SchoolComponent key={value} school={value}></SchoolComponent>
+						return <SchoolComponent key={value.id} school={value}></SchoolComponent>
 					})
 				}
 				<Input id="school"/>
