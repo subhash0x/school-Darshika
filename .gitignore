@@ -4,4 +4,4 @@ node_modules/
 .idea/*
 db.sqlite3
 static/
-*.pyc
+__pycache__/*
