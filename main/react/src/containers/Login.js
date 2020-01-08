@@ -130,7 +130,7 @@ class Login extends Component {
           <LoginForm/>
 
       </Col>
-      <Col sm={9} offset={5}><img src={'/static/main/school.png'} height={'500px'}  alt={'logo'} className="thumbnail"/></Col>
+      <Col sm={11} offset={3}><img src={'/static/main/school.png'} height={'500px'}  alt={'logo'} className="thumbnail"/></Col>
     </Row>
 
 
