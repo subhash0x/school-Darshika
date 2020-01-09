@@ -1,13 +1,26 @@
-import { Button, DatePicker, version, Layout, Menu, Breadcrumb, Row, Col , Form, Icon, Input, Checkbox} from "antd";
+import { Button, DatePicker, version, Layout, Menu, Breadcrumb, Row, Col , Form, Icon, Input, Checkbox, message} from "antd";
 import React, { Component } from 'react';
+import APIClient from "../api_client"
+import axios from "axios"
+import Utils from "../utils"
 
 
 class LoginForm extends Component {
-  handleSubmit = e => {
+
+    handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+          APIClient.login(values.email, values.password).then((response) => {
+              let token = response.data.token;
+              axios.defaults.headers.common['Authorization'] = token; // for all requests
+              Utils.setCookie("auth", token, 7);
+              message.error("Logged in successfully!");
+              window.location = "/app";
+          }).catch((error) => {
+              console.log(error);
+              message.error("Couldn't login. Please try again!");
+          });
       }
     });
   };
@@ -22,12 +35,12 @@ class LoginForm extends Component {
 
             <Form onSubmit={this.handleSubmit} className="login-form">
         <Form.Item>
-          {getFieldDecorator('username', {
+          {getFieldDecorator('email', {
             rules: [{ required: true, message: 'Please input your username!' }],
           })(
             <Input
               prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              placeholder="Username"
+              placeholder="Email"
             />,
           )}
         </Form.Item>

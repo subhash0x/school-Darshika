@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Button, DatePicker, version, Layout, Menu, Breadcrumb, Row, Col , Form, Icon, Input, Card} from "antd";
 import { Link } from 'react-router-dom';
+import { Button, Row, Col, Upload, Input, message, Spin, Icon } from 'antd';
 import Webcam from 'react-webcam';
 import nodata from '../images/1.png';
 import border from '../images/border_back.png';
@@ -165,4 +165,3 @@ class Login extends Component {
 }
 
 export default Login;
-
