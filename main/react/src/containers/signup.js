@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete,} from 'antd';
-
 import CustomFooter from "./footer"
 import CustomHeader from "./header";
 const { Option } = Select;
@@ -128,10 +127,13 @@ class signup extends React.Component {
 
 
     return (
-    <div className="layout" >
-        <Col sm={20}  style={{ display: 'block',  padding: '10px'}}>
+    <div>
 
         <CustomHeader/>
+        <Row>
+         <Col sm={9}  style={{ display: 'block',  padding: '10px'}}>
+ <div className="container" style={{position:'relative', margin:'50px', backgroundColor:'rgb(240,240,240)', padding: '30px', borderRadius:'5px'}}>
+
         <Form {...formItemLayout} onSubmit={this.handleSubmit}>
              <Form.Item label="Name">
 
@@ -201,7 +203,7 @@ class signup extends React.Component {
             valuePropName: 'checked',
           })(
             <Checkbox>
-              I have read the <a href="">agreement</a>
+              NGO
             </Checkbox>,
           )}
         </Form.Item>
@@ -209,12 +211,15 @@ class signup extends React.Component {
           <Button type="primary" htmlType="submit">
             Register
           </Button>
-
         </Form.Item>
-           <div>
-        <CustomFooter/>
-        </div>
       </Form>
+      </div>
+        </Col>
+        </Row>
+        <Row>
+
+         <CustomFooter/>
+</Row>
     </div>
 
 
