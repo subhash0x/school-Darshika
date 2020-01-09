@@ -15,7 +15,7 @@ class LoginForm extends Component {
               let token = response.data.token;
               axios.defaults.headers.common['Authorization'] = token; // for all requests
               Utils.setCookie("auth", token, 7);
-              message.error("Logged in successfully!");
+              message.info("Logged in successfully!");
               window.location = "/app";
           }).catch((error) => {
               console.log(error);
@@ -24,7 +24,6 @@ class LoginForm extends Component {
       }
     });
   };
-
 
   render() {
     const { getFieldDecorator } = this.props.form;
