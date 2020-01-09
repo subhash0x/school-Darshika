@@ -16,9 +16,9 @@ class LoginForm extends Component {
     const { getFieldDecorator } = this.props.form;
     return (
 
-        <Col span={20}  style={{ display: 'block',  padding: '10px'}}>
+        <Col sm={20}  style={{ display: 'block',  padding: '10px'}}>
 
-            <div className="container" style={{position:'relative', marginLeft:'30px', backgroundColor:'rgb(220,220,220)', padding: '10px', borderRadius:'5px'}}>
+            <div className="container" style={{position:'relative', margin:'50px', backgroundColor:'rgb(240,240,240)', padding: '30px', borderRadius:'5px'}}>
 
             <Form onSubmit={this.handleSubmit} className="login-form">
         <Form.Item>
@@ -42,14 +42,17 @@ class LoginForm extends Component {
             />,
           )}
         </Form.Item>
+
         <Form.Item>
           {getFieldDecorator('remember', {
             valuePropName: 'checked',
             initialValue: true,
           })(<Checkbox>Remember me</Checkbox>)}
           <a className="login-form-forgot" href="">
+               <br></br>
             Forgot password
           </a>
+             <br></br>
           <Button type="primary" htmlType="submit" className="login-form-button">
             Log in
           </Button>
