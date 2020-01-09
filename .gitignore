@@ -4,4 +4,5 @@ node_modules/
 .idea/*
 db.sqlite3
 static/
-__pycache__/*
+__pycache__/
+venv/
