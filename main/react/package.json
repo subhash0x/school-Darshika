@@ -18,7 +18,9 @@
     "react-router-dom": "^5.0.1",
     "react-scripts": "^3.0.1",
     "react-webcam": "^1.1.1",
-    "video-react": "^0.14.1"
+    "video-react": "^0.14.1",
+    "react-count-to": "latest",
+    "react-count-to": "latest"
   },
   "devDependencies": {
     "@babel/core": "^7.6.0",
