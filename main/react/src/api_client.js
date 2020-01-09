@@ -4,38 +4,60 @@ const BASE_URL = (window.location.protocol === 'https' ? 'https' : 'http') + ':/
 const SCHOOLS_API = BASE_URL + 'schools/';
 const SUBSCRIPTIONS_API = BASE_URL + 'subscriptions/';
 const NOTIFICATIONS_API = BASE_URL + 'notifications/';
+const FEEDBACKS_API = BASE_URL + 'feedbacks/';
 const USER_API = BASE_URL + 'users/';
+const LOGIN_API = BASE_URL + 'login/';
+const SIGNUP_API = BASE_URL + 'signup/';
+
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
 class APIClient{
 
-    static getSchools = (params) => {
-
+    static fetch = (url, params) => APIClient.request(url, params, 'get');
+    static post = (url, params) => APIClient.request(url, params, 'post');
+    static request = (url, params, method) => {
         return axios({
-            method: 'get',
-            url: SCHOOLS_API,
-            params: params,
+            method: method,
+            url: url,
+            data: params,
             CORS: true,
         });
+    };
 
-        let geolocationCallback = (position) => {
-            params['lat'] = position.coords.latitude;
-            params['lng'] = position.coords.longitude;
+    static getSchools = (params) => {
+        return APIClient.fetch(SCHOOLS_API. params);
+    };
 
-        };
+    static getSubscriptions = (schoolId) => {
+        return APIClient.fetch(SUBSCRIPTIONS_API, {school: schoolId});
+    };
 
-        if (navigator.geolocation) {
-            let d = navigator.geolocation.getCurrentPosition((position) => {
-                return geolocationCallback(position);
-            });
-            console.log(d);
-        } else {
-            x.innerHTML = "Geolocation is not supported by this browser.";
-        }
+    static addSubscription = (schoolId) => {
+        return APIClient.post(SUBSCRIPTIONS_API, {school: schoolId});
+    };
 
-    }
+    static getNotifications = () => {
+        return APIClient.fetch(NOTIFICATIONS_API, {});
+    };
+
+    static getFeedbacksForSchool = (schoolId) => {
+        return APIClient.fetch(FEEDBACKS_API, {school: schoolId});
+    };
+
+    static getUser = (userId) => {
+        return APIClient.fetch(USER_API + userId, {});
+    };
+
+    static login = (email, password) => {
+        return APIClient.post(LOGIN_API, {email: email, password: password})
+    };
+
+    static signup = (params) => {
+        return APIClient.post(SIGNUP_API, params);
+    };
+
 }
 
 export default APIClient;

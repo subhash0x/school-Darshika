@@ -33,14 +33,21 @@ class SchoolSerializer(serializers.ModelSerializer):
 
     def get_subscriptions(self, school):
         return SubscriptionSerializer(school.subscriptions, many=True, context=self.context).data
+
     def get_location(self, school):
         return LocationSerializer(school.location, context=self.context).data
+
+    def create(self, validated_data):
+        return Subscription.objects.create(owner=validated_data.pop('owner'), **validated_data)
 
 
 class FeedbackSerializer(serializers.ModelSerializer):
     class Meta:
         model = Feedback
         fields = '__all__'
+
+    def create(self, validated_data):
+        return Subscription.objects.create(owner=validated_data.pop('owner'), **validated_data)
 
 
 class NotificationSerializer(serializers.ModelSerializer):

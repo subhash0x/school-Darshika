@@ -1,107 +1,66 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Button, DatePicker, version, Layout, Menu, Breadcrumb, Row, Col , Form, Icon, Input} from "antd";
 import { Link } from 'react-router-dom';
-import { Button, Row, Col, Upload, Input, message, Spin, Icon } from 'antd';
 import Webcam from 'react-webcam';
 import nodata from '../images/1.png';
 import border from '../images/border_back.png';
 import logo from '../images/logo.png';
+import LoginForm from "./LoginForm";
+
 import './capturevideo.css';
 import TestComponent from './TestComponent';
 import SchoolComponent from "./SchoolContainer";
-import APIClient from "../api_client"
+//import SubMenu from "antd/es/menu/SubMenu";
 
+const { SubMenu } = Menu;
+const { Header, Content, Footer, Sider } = Layout;
 
-let videoConstraints = {
-    width: 1280,
-    height: 720,
-    screenshotFormat: "image/webm",
-    facingMode: "camera",
-};
-
-const antIcon = <Icon type="loading" style={{ fontSize: 24, color: 'white' }} spin />;
 
 class Login extends Component {
+  render() {
+    return (
+        <div className="layout">
+    <Header className="header" >
+      <div className="logo" />
 
-	constructor(props) {
-		super(props);
-		this.state = {
-			showTest: false,
-			schools: [],
-			location: null
-		};
-	}
-
-	componentDidMount() {
-		this.loadLocation();
-	}
-
-	componentDidUpdate(prevProps, prevState){
-		if(prevState.location == null && this.state.location != null){
-			this.loadSchools();
-		}
-	}
+        <Menu
+        theme="dark"
+        mode="horizontal"
+        defaultSelectedKeys={['1']}
+        style={{ lineHeight: '64px' }} >
+            <Menu.Item key="1" style={{ fontSize: '18px'}}> <Col sm={3}><b>Schoolदर्शिका</b></Col></Menu.Item>
 
 
-	handleClick = (event) => {
-		let schoolInput = document.getElementById("school");
-		const {schools} = this.state;
-		schools.push(schoolInput.value);
-		this.setState({
-			schools : schools
-		});
-
-	};
+            <Menu.Item style={{ fontSize: '16px' }} key="2"> <Col sm={3}>About Us</Col></Menu.Item>
 
 
-	loadLocation = () => {
-		const self = this;
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition((position) => {
-				self.setState({
-					location: {lat: position.coords.latitude, lng: position.coords.longitude}
-				});
-			});
-		} else {
-			alert("Geolocation is not supported by this browser.");
-		}
-	};
+            <Menu.Item style={{ fontSize: '16px' , float: 'right'}} key="3">Log In</Menu.Item>
+
+      </Menu>
+
+    </Header>
 
 
-	loadSchools = (event) => {
-		const self = this;
-		let params = {lat: this.state.location.lat, lng: this.state.location.lng};
-		APIClient.getSchools(params).then(function (response) {
-				let data = response.data;
-				const { schools } = self.state;
-				for(let i = 0; i<data.length; i++){
-					schools.push(data[i]);
-				}
-				self.setState({
-					schools: schools
-				});
-			}
-		).catch(function (error) {
-            console.log(error);
-        });
-	};
+     <Row type="flex" justify="start">
+      <Col sm={8}>
 
-	render() {
+          <LoginForm/>
 
-		return (
-	    	<div className="layout" style={{backgroundColor:"white",marginTop:"10px"}}>
-		      	<h1>Hello Diddi!</h1>
-				{
-					this.state.schools.map((value, index) => {
-						console.log(value);
-						return <SchoolComponent key={value.id} school={value}></SchoolComponent>
-					})
-				}
-				<Input id="school"/>
-				<Button type="primary" onClick={this.handleClick}>Add School</Button>
-	        </div>
-	    );
-    }
+      </Col>
+      <Col sm={11} offset={3}><img src={'/static/main/school.png'} height={'500px'}  alt={'logo'} className="thumbnail"/></Col>
+    </Row>
+
+
+    <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+        </div>
+
+
+
+    );
+  }
 }
 
 export default Login;
+
+// ReactDOM.render(<Login />, document.getElementById('root'));
