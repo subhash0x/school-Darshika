@@ -9,14 +9,12 @@ import logo from '../images/logo.png';
 import LoginForm from "./LoginForm";
 
 import CustomFooter from "./footer"
-
+import CustomHeader from "./header";
 import Jumbotron from "./jumbotron";
-
 import './capturevideo.css';
 import TestComponent from './TestComponent';
 import SchoolComponent from "./SchoolContainer";
 //import SubMenu from "antd/es/menu/SubMenu";
-
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -25,25 +23,8 @@ class Login extends Component {
   render() {
     return (
         <div className="layout">
-    <Header className="header" >
-      <div className="logo" />
 
-        <Menu
-        theme="dark"
-        mode="horizontal"
-        defaultSelectedKeys={['1']}
-        style={{ lineHeight: '64px' }} >
-            <Menu.Item key="1" style={{ fontSize: '18px'}}> <Col sm={3}><b>Schoolदर्शिका</b></Col></Menu.Item>
-
-
-            <Menu.Item style={{ fontSize: '16px' }} key="2"> <Col sm={3}>About Us</Col></Menu.Item>
-
-
-            <Menu.Item style={{ fontSize: '16px' , float: 'right'}} key="3">Log In</Menu.Item>
-
-      </Menu>
-
-    </Header>
+            <CustomHeader/>
 
 
      <Row type="flex" justify="start">
