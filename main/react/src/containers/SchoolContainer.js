@@ -9,6 +9,7 @@ class SchoolComponent extends Component {
 		};
 	}
 
+
 	render() {
 		return (
 	    	<div>

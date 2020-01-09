@@ -129,8 +129,6 @@ class signup extends React.Component {
 
     return (
     <div className="layout" >
-        <Col sm={20}  style={{ display: 'block',  padding: '10px'}}>
-
         <CustomHeader/>
         <Form {...formItemLayout} onSubmit={this.handleSubmit}>
              <Form.Item label="Name">
