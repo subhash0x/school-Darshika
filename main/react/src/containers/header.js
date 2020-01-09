@@ -27,7 +27,12 @@ class CustomHeader extends Component{
             <Menu.Item style={{ fontSize: '16px' }} key="2"> <Col sm={3}>About Us</Col></Menu.Item>
 
 
-            <Menu.Item style={{ fontSize: '16px' , float: 'right'}} key="3"><Logout/></Menu.Item>
+            <Menu.Item style={{ fontSize: '16px' , float: 'right'}} key="3">
+
+
+                <Logout/>
+
+            </Menu.Item>
 
       </Menu>
 

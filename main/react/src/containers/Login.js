@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { Button, Row, Col, Upload, Input, message, Spin, Icon } from 'antd';
+import { Button, Row, Col, Upload, Input, message, Spin, Icon,Menu,Layout } from 'antd';
 import Webcam from 'react-webcam';
 import nodata from '../images/1.png';
 import border from '../images/border_back.png';
@@ -14,12 +14,14 @@ import Jumbotron from "./jumbotron";
 import './capturevideo.css';
 import TestComponent from './TestComponent';
 import SchoolComponent from "./SchoolContainer";
+import Card from "antd/es/card";
 //import SubMenu from "antd/es/menu/SubMenu";
 const { SubMenu } = Menu;
 const { Header, Content, Footer} = Layout;
 
 
 class Login extends Component {
+
 
   render() {
     return (
@@ -71,9 +73,6 @@ class Login extends Component {
                         </p>
 
                         </p>
-
-
-
 
                     </Card>
                   </div>
