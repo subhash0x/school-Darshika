@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { Button, Row, Col, Upload, Input, message, Spin, Icon,Menu,Layout } from 'antd';
+import { Button, Row, Col, Upload, Input, message, Spin, Icon, Menu, Layout } from 'antd';
 import Webcam from 'react-webcam';
 import nodata from '../images/1.png';
 import border from '../images/border_back.png';
