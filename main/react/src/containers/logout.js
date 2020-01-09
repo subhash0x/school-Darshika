@@ -15,7 +15,7 @@ class Logout extends Component {
 
         if(token!=null)
         {
-            res=<div name='func'>Logout {token}</div>;
+            res=<div name='func'>Logout</div>;
         }
         else
         {
