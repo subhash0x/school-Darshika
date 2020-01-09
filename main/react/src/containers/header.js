@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import { Button, DatePicker, version, Layout, Menu, Breadcrumb, Row, Col , Form, Icon, Input, Card} from "antd";
+
+import Logout from "./logout"
 const {Header}=Layout
+import {Link} from 'react-router-dom'
+
+
 
 class CustomHeader extends Component{
+
+
 
     render(){
 
@@ -20,14 +27,17 @@ class CustomHeader extends Component{
             <Menu.Item style={{ fontSize: '16px' }} key="2"> <Col sm={3}>About Us</Col></Menu.Item>
 
 
-            <Menu.Item style={{ fontSize: '16px' , float: 'right'}} key="3">Log In</Menu.Item>
+            <Menu.Item style={{ fontSize: '16px' , float: 'right'}} key="3"><Logout/></Menu.Item>
 
       </Menu>
 
     </Header>);
 
     }
-}
+
+
+
+ }
 
 
 export default CustomHeader;

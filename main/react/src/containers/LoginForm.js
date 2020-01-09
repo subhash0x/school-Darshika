@@ -48,15 +48,16 @@ class LoginForm extends Component {
             valuePropName: 'checked',
             initialValue: true,
           })(<Checkbox>Remember me</Checkbox>)}
+          <br></br>
           <a className="login-form-forgot" href="">
-               <br></br>
             Forgot password
           </a>
              <br></br>
-          <Button type="primary" htmlType="submit" className="login-form-button">
+          <Button type="primary" htmlType="submit" className="login-form-button" block>
             Log in
           </Button>
-          Or <a href="">register now!</a>
+            <br></br>
+          <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}> Or <a href="">register now!</a></div>
         </Form.Item>
       </Form>
                 </div>
