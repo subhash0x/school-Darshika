@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import APIClient from "../api_client"
 import axios from "axios"
 import Utils from "../utils"
+import {Translate} from "react-localize-redux";
 
 
 class LoginForm extends Component {
@@ -60,22 +61,22 @@ class LoginForm extends Component {
           {getFieldDecorator('remember', {
             valuePropName: 'checked',
             initialValue: true,
-          })(<Checkbox>Remember me</Checkbox>)}
+          })(<Checkbox><Translate id="login.remamberme">Remember me</Translate></Checkbox>)}
           <br></br>
           <a className="login-form-forgot" href="">
-            Forgot password
+              <Translate id="login.forgot">
+            Forgot password</Translate>
           </a>
              <br></br>
           <Button type="primary" htmlType="submit" className="login-form-button" block>
-            Log in
+           <Translate id="login.login"> Log in</Translate>
           </Button>
             <br></br>
-          <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}> Or <a href="">register now!</a></div>
+            <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>  Or   <a href=""><Translate id="login.register">register now!</Translate></a></div>
         </Form.Item>
       </Form>
                 </div>
         </Col>
-
     );
   }
 }
