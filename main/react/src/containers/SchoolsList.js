@@ -10,6 +10,9 @@ import './capturevideo.css';
 import TestComponent from './TestComponent';
 import SchoolComponent from "./SchoolContainer";
 import APIClient from "../api_client"
+import CustomHeader from "./header";
+import SchoolListHeader from "./SchoolListHeader";
+import SchoolSideNav from "./SchoolSideNav"
 
 
 let videoConstraints = {
@@ -28,7 +31,8 @@ class SchoolsList extends Component {
 		this.state = {
 			showTest: false,
 			schools: [],
-			location: null
+			location: null,
+			isSchoolsLoading: true
 		};
 	}
 
@@ -88,8 +92,15 @@ class SchoolsList extends Component {
 
 
 	loadSchools = (event) => {
+		if(this.state.location == null)
+			return;
+		this.setState({
+			isSchoolsLoading: true
+		});
 		const self = this;
         let params = {lat: this.state.location.lat, lng: this.state.location.lng};
+        if(self.state.amenity != null)
+        	params.amenity=self.state.amenity;
         APIClient.getSchools(params).then(function (response) {
 				let data = response.data;
 				console.log(data);
@@ -98,7 +109,8 @@ class SchoolsList extends Component {
 					schools.push(data[i]);
 				}
 				self.setState({
-					schools: schools
+					schools: schools,
+					isSchoolsLoading: false
 				});
 			}
         ).catch(function (error) {
@@ -106,22 +118,48 @@ class SchoolsList extends Component {
         });
 	};
 
+	handleAmenityChange = (value) => {
+		const self = this;
+		this.setState({
+			schools: [],
+			amenityFilter: value
+		}, () => {
+			self.loadSchools();
+		});
+	};
+
 	render() {
 
 		return (
-	    	<div className="layout" style={{backgroundColor:"white",marginTop:"10px"}}>
-		      	<h1>Hello Diddi!</h1>
-				{
-					this.state.schools.map((value, index) => {
-						console.log(value);
-						return(
-							<SchoolComponent key={value.id} school={value}></SchoolComponent>
-						);
-					})
-				}
-				<Input id="school"/>
-				<Button type="primary" onClick={this.handleClick}>Add School</Button>
-	        </div>
+			<div className="layout" style={{backgroundColor:"white",marginTop:"10px"}}>
+				<SchoolListHeader/>
+				<SchoolSideNav handleChange={this.handleAmenityChange}/>
+			{
+				(this.state.location != null && !this.state.isSchoolsLoading)?
+						<div>
+						<Col sm={15}  style={{justifyContent:'left', alignItems:'left', display: 'block',  padding: '10px'}}>
+						{
+							this.state.schools.map((value, index) => {
+								console.log(value);
+								return(
+									<SchoolComponent key={value.id} school={value}></SchoolComponent>
+								);
+							})
+						}
+						</Col></div> :
+						<Col sm={15}>
+							<br/>
+							<br/>
+							<br/>
+							<center>
+								<Spin/>
+								<h4>Loading schools near you</h4>
+							</center>
+						</Col>
+
+			}
+			</div>
+
 	    );
     }
 }

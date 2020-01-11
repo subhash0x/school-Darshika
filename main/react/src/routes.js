@@ -6,7 +6,6 @@ import signup from './containers/signup';
 import TestComponent from './containers/TestComponent';
 import SchoolPage from './containers/SchoolPage'
 import Logout from "./containers/logout";
-import Maps from "./containers/maps"
 import SchoolMap from "./containers/SchoolMap"
 
 export const BASE_PATH = '/app';
@@ -19,7 +18,7 @@ const BaseRouter = () => (
 		<Route exact path={`${BASE_PATH}/signup`} component={signup} />
 		<Route exact path={`${BASE_PATH}/login/schoolpage`} component={SchoolPage} />
 		<Route exact path={`${BASE_PATH}/logout`} component={Logout} />
-		<Route exact path={`${BASE_PATH}/maps`} component={Maps} />
+		<Route exact path={`${BASE_PATH}/maps`} component={SchoolMap} />
 		<Route exact path={`${BASE_PATH}/schoolsList`} component={SchoolsList} />
 
 	</div>

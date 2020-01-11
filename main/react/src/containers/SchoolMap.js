@@ -11,7 +11,7 @@ import TestComponent from './TestComponent';
 import SchoolComponent from "./SchoolContainer";
 import APIClient from "../api_client"
 import Utils from "../utils";
-import * as parksData from "./data/skateboard-park.json";
+
 
 import {
   withGoogleMap,
@@ -129,7 +129,7 @@ class SchoolMap extends Component {
 							setSelectedSchool(null)
 						}}
 					>
-						<div><a href={"http://localhost:8000/api/schools/".concat(selectedSchool.id)}>{selectedSchool.name}</a></div>
+						<div><a href={"http://localhost:8000/app/schools/".concat(selectedSchool.id)}>{selectedSchool.name}</a></div>
 					</InfoWindow>
 				)}
 			</GoogleMap>
