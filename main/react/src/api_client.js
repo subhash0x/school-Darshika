@@ -8,6 +8,9 @@ const FEEDBACKS_API = BASE_URL + 'feedbacks/';
 const USER_API = BASE_URL + 'users/';
 const LOGIN_API = BASE_URL + 'login/';
 const SIGNUP_API = BASE_URL + 'signup/';
+const IMAGE_UPLOADS_API = BASE_URL + 'images/';
+const AMENITIES_API = BASE_URL + 'amenities/';
+
 
 
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -15,9 +18,9 @@ axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
 class APIClient{
 
-    static fetch = (url, params) => APIClient.request(url, params, 'get');
-    static post = (url, params) => APIClient.request(url, params, 'post');
-    static request = (url, params, method) => {
+    static fetch = (url, params, headers = {}) => APIClient.request(url, params, 'get');
+    static post = (url, params, headers = {}) => APIClient.request(url, params, 'post');
+    static request = (url, params, headers, method) => {
         return axios({
             method: method,
             url: url,
@@ -27,7 +30,7 @@ class APIClient{
     };
 
     static getSchools = (params) => {
-        return APIClient.fetch(SCHOOLS_API. params);
+        return APIClient.fetch(SCHOOLS_API, params);
     };
 
     static getSubscriptions = (schoolId) => {
@@ -56,6 +59,18 @@ class APIClient{
 
     static signup = (params) => {
         return APIClient.post(SIGNUP_API, params);
+    };
+
+    static uploadImage = (imageFile) => {
+        return APIClient.post(IMAGE_UPLOADS_API, {file: imageFile}, {'Content-Type': 'multipart/form-data'});
+    };
+
+    static getAmenities = (params) => {
+        return APIClient.fetch(AMENITIES_API, params)
+    };
+
+    static addFeedback = (feedback) => {
+        return APIClient.post(FEEDBACKS_API, {}, {'Content-Type': 'application/json'});
     };
 
 }

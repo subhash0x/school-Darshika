@@ -39,6 +39,8 @@ class SchoolsList extends Component {
 	componentDidUpdate(prevProps, prevState){
 		if(prevState.location == null && this.state.location != null){
 			this.loadSchools();
+			this.loadAmenities();
+			this.loadFeedbacks(1);
 		}
 	}
 
@@ -51,6 +53,22 @@ class SchoolsList extends Component {
 			schools : schools
 		});
 
+	};
+
+	loadAmenities = () => {
+		APIClient.getAmenities({}).then((response) => {
+			console.log(response.data);
+		}).catch((error) => {
+			console.log(error);
+		});
+	};
+
+	loadFeedbacks = (schoolId) => {
+		APIClient.getFeedbacks({school: schoolId}).then((response) => {
+			console.log(response.data);
+		}).catch((error) => {
+			console.log(error);
+		})
 	};
 
 
