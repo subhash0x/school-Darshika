@@ -11,16 +11,17 @@
     "opencv4nodejs": "^5.4.0",
     "rc-tween-one": "^2.6.8",
     "react": "^16.8.6",
+    "react-count-to": "latest",
     "react-dom": "^16.8.6",
     "react-geolocated": "^3.0.1",
     "react-https-redirect": "^1.1.0",
+    "react-localization": "^1.0.15",
     "react-particles-js": "^2.7.0",
     "react-redux": "^7.1.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "^3.0.1",
     "react-webcam": "^1.1.1",
-    "video-react": "^0.14.1",
-    "react-count-to": "latest"
+    "video-react": "^0.14.1"
   },
   "devDependencies": {
     "@babel/core": "^7.6.0",
