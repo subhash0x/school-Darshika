@@ -25,14 +25,28 @@ class LocationSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class SchoolSerializer(serializers.ModelSerializer):
+class SchoolAmenityScoreSerializer(serializers.ModelSerializer):
 
-    subscriptions = serializers.SerializerMethodField()
-    location = serializers.SerializerMethodField()
+    amenity = serializers.SerializerMethodField(read_only=True)
+    amenity_id = serializers.IntegerField(write_only=True)
+
+    class Meta:
+        model = SchoolAmenityScore
+        fields = '__all__'
+
+    def get_amenity(self, score):
+        return AmenitySerializer(score.amenity, context=self.context).data
+
+
+class SchoolSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = School
         fields = '__all__'
+
+    scores = SchoolAmenityScoreSerializer(many=True, read_only=True)
+    subscriptions = serializers.SerializerMethodField()
+    location = serializers.SerializerMethodField()
 
     def get_subscriptions(self, school):
         return SubscriptionSerializer(school.subscriptions, many=True, context=self.context).data
@@ -57,17 +71,7 @@ class AmenitySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class SchoolAmenityScoreSerializer(serializers.ModelSerializer):
 
-    amenity = serializers.SerializerMethodField(read_only=True)
-    amenity_id = serializers.IntegerField(write_only=True)
-
-    class Meta:
-        model = SchoolAmenityScore
-        fields = '__all__'
-
-    def get_amenity(self, score):
-        return AmenitySerializer(score.amenity, context=self.context).data
 
 
 class FeedbackAmenityScoreSerializer(serializers.ModelSerializer):
@@ -131,6 +135,14 @@ class FeedbackSerializer(serializers.ModelSerializer):
         for image_raw in images_raw:
             print(image_raw)
             FeedbackImage.objects.create(image_upload=ImageUpload.objects.get(pk=image_raw['image_upload_id']), feedback=feedback)
+
+        school = feedback.school
+        feedback_count = school.feedbacks.count()   # includes the current one
+
+        for fscore in feedback.scores.all():
+            sscore = school.scores.get(amenity=fscore.amenity)
+            sscore.score = (sscore.score * (feedback_count - 1) + fscore.score) / feedback_count
+            sscore.save()
 
         return feedback
 

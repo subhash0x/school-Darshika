@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from schoolDarshika import helpers
 from django.utils import timezone
+# from django.contrib.gis.db import models as gismodels
 
 
 class UserManager(BaseUserManager):
@@ -44,6 +45,7 @@ class Location(models.Model):
     city = models.CharField(max_length=100, default="Warangal")
     state = models.CharField(max_length=100, default="Telangana")
     country = models.CharField(max_length=100, default="India")
+    # position = gismodels.PointField(null=False, blank=False, srid=4326, verbose_name="Position")
     lat = models.FloatField(default=17.9689)
     lng = models.FloatField(default=79.5941)
 
@@ -78,7 +80,7 @@ class FeedbackImage(models.Model):
 class Feedback(models.Model):
     created_on = models.DateTimeField(default=timezone.now)
     owner = models.ForeignKey('User', on_delete=models.CASCADE)
-    school = models.ForeignKey('School', on_delete=models.CASCADE)
+    school = models.ForeignKey('School', on_delete=models.CASCADE, related_name='feedbacks')
     description = models.TextField(blank=True, null=True)
 
 
@@ -98,3 +100,13 @@ class School(models.Model):
     location = models.ForeignKey('Location', on_delete=models.CASCADE)
     cover_image = models.ImageField(null=True, blank=True, upload_to=helpers.PathAndRenameFile('amenities'))
     profile_image = models.ImageField(null=True, blank=True, upload_to=helpers.PathAndRenameFile('amenities'))
+
+    def save(self, *args, **kwargs):
+        is_new = (not self.pk)
+        super(School, self).save(*args, **kwargs)
+        if is_new:
+            for a in Amenity.objects.all():
+                SchoolAmenityScore.objects.create(
+                    school=self,
+                    amenity=a
+                )
