@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete,} from 'antd';
 import CustomFooter from "./footer"
 import CustomHeader from "./header";
+import APIClient from "../api_client";
+import {message} from "antd/lib/index";
 const { Option } = Select;
 const AutoCompleteOption = AutoComplete.Option;
 
@@ -48,12 +50,21 @@ class signup extends React.Component {
   };
 
   handleSubmit = e => {
-    e.preventDefault();
-    this.props.form.validateFieldsAndScroll((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
-      }
-    });
+      e.preventDefault();
+      this.props.form.validateFieldsAndScroll((err, values) => {
+          if (!err) {
+              APIClient.signup(values).then((response) => {
+                  message.info("Signed up successfully!");
+                  window.location = "/login";
+              }).catch((error) => {
+                  message.error("Couldn't sign up. Please try again!");
+                  console.log(error);
+
+                  ;
+                  //console.log('Received values of form: ', values);
+              });
+          }
+      });
   };
 
   handleConfirmBlur = e => {
