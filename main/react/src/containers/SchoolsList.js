@@ -32,7 +32,8 @@ class SchoolsList extends Component {
 			showTest: false,
 			schools: [],
 			location: null,
-			isSchoolsLoading: true
+			isSchoolsLoading: true,
+			amenityFilter: null
 		};
 	}
 
@@ -43,8 +44,6 @@ class SchoolsList extends Component {
 	componentDidUpdate(prevProps, prevState){
 		if(prevState.location == null && this.state.location != null){
 			this.loadSchools();
-			this.loadAmenities();
-			//this.loadFeedbacks(1);
 		}
 
 	}
@@ -59,23 +58,6 @@ class SchoolsList extends Component {
 		});
 
 	};
-
-	loadAmenities = () => {
-		APIClient.getAmenities({}).then((response) => {
-			console.log(response.data);
-		}).catch((error) => {
-			console.log(error);
-		});
-	};
-
-	// loadFeedbacks = (schoolId) => {
-	// 	APIClient.getFeedbacks({school: schoolId}).then((response) => {
-	// 		console.log(response.data);
-	// 	}).catch((error) => {
-	// 		console.log(error);
-	// 	})
-	// };
-
 
 	loadLocation = () => {
 		const self = this;
@@ -99,8 +81,8 @@ class SchoolsList extends Component {
 		});
 		const self = this;
         let params = {lat: this.state.location.lat, lng: this.state.location.lng};
-        if(self.state.amenity != null)
-        	params.amenity=self.state.amenity;
+        if(self.state.amenityFilter != null)
+        	params.amenity = self.state.amenityFilter;
         APIClient.getSchools(params).then(function (response) {
 				let data = response.data;
 				console.log(data);
@@ -124,6 +106,7 @@ class SchoolsList extends Component {
 			schools: [],
 			amenityFilter: value
 		}, () => {
+			console.log("amenity filter " + this.state.amenityFilter);
 			self.loadSchools();
 		});
 	};

@@ -19,7 +19,7 @@ const BaseRouter = () => (
 		<Route exact path={`${BASE_PATH}/login/schoolpage`} component={SchoolPage} />
 		<Route exact path={`${BASE_PATH}/logout`} component={Logout} />
 		<Route exact path={`${BASE_PATH}/maps`} component={SchoolMap} />
-		<Route exact path={`${BASE_PATH}/schoolsList`} component={SchoolsList} />
+		<Route exact path={`${BASE_PATH}`} component={SchoolsList} />
 
 	</div>
 );
