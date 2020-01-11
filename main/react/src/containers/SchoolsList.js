@@ -40,8 +40,9 @@ class SchoolsList extends Component {
 		if(prevState.location == null && this.state.location != null){
 			this.loadSchools();
 			this.loadAmenities();
-			this.loadFeedbacks(1);
+			//this.loadFeedbacks(1);
 		}
+
 	}
 
 
@@ -63,13 +64,13 @@ class SchoolsList extends Component {
 		});
 	};
 
-	loadFeedbacks = (schoolId) => {
-		APIClient.getFeedbacks({school: schoolId}).then((response) => {
-			console.log(response.data);
-		}).catch((error) => {
-			console.log(error);
-		})
-	};
+	// loadFeedbacks = (schoolId) => {
+	// 	APIClient.getFeedbacks({school: schoolId}).then((response) => {
+	// 		console.log(response.data);
+	// 	}).catch((error) => {
+	// 		console.log(error);
+	// 	})
+	// };
 
 
 	loadLocation = () => {
@@ -88,8 +89,8 @@ class SchoolsList extends Component {
 
 	loadSchools = (event) => {
 		const self = this;
-		let params = {lat: this.state.location.lat, lng: this.state.location.lng};
-		APIClient.getSchools(params).then(function (response) {
+        let params = {lat: this.state.location.lat, lng: this.state.location.lng};
+        APIClient.getSchools(params).then(function (response) {
 				let data = response.data;
 				console.log(data);
 				const { schools } = self.state;
@@ -100,7 +101,7 @@ class SchoolsList extends Component {
 					schools: schools
 				});
 			}
-		).catch(function (error) {
+        ).catch(function (error) {
             console.log(error);
         });
 	};
@@ -113,7 +114,9 @@ class SchoolsList extends Component {
 				{
 					this.state.schools.map((value, index) => {
 						console.log(value);
-						return <SchoolComponent key={value.id} school={value}></SchoolComponent>
+						return(
+							<SchoolComponent key={value.id} school={value}></SchoolComponent>
+						);
 					})
 				}
 				<Input id="school"/>
