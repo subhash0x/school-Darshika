@@ -1,0 +1,22 @@
+{
+  "login": {
+    "amenities": ["This school has all amenities for development of students.", "इस स्कूल में छात्रों के विकास के लिए सभी सुविधाएं हैं।"],
+    "mon": ["Monika Pandey","मोनिका पांडे"],
+     "paras": ["Paras Jain","पारस जैन"],
+    "parascmt": ["This school has all amenities for development of students","इस स्कूल में छात्रों के विकास के लिए सभी सुविधाएं हैं।"],
+    "Parent": ["Parent","पिता"],
+    "Student": ["Student","छात्र"],
+    "Aboutus": ["About Us","हमारे बारे में"],
+    "abtus": ["We are a school management platform, taking responsibility for all your concerns while admitting your ward to any of the government funded schools in India .helps a school manage data, communications, and scheduling. A school system generates and uses a large amount of data. This data must be communicated appropriately to students, faculty, and parents.","हम एक स्कूल प्रबंधन मंच हैं, जो भारत के किसी भी सरकारी वित्त पोषित स्कूलों में अपने वार्ड की भर्ती करते समय आपकी सभी चिंताओं की ज़िम्मेदारी लेते हैं। एक स्कूल डेटा, संचार और शेड्यूलिंग का प्रबंधन करता है। एक स्कूल प्रणाली बड़ी मात्रा में डेटा उत्पन्न करती है और उसका उपयोग करती है। इस डेटा को छात्रों, शिक्षकों और अभिभावकों के लिए उचित रूप से संप्रेषित किया जाना चाहिए।"],
+    "SchoolsOnbarded": ["Schools Onbarded","कुल स्कूल पंजीकृत"],
+    "feedback": ["Feedbacks","प्रतिक्रिया"],
+    "subhash": ["Subhash bhil","सुभाष भील"],
+    "register": ["Register now","अभी पंजीकरण करें"],
+    "forgot": ["forgot password","पासवर्ड भूल गए"],
+    "remamberme": ["Remember me","मुझे याद रखना"],
+    "login": ["log in","लॉग इन करें"],
+    "email": ["email","ईमेल"],
+    "x": ["Student","छात्रा"],
+    "nvl": ["NAVODAYA VIDYALAYA, Lucknow","\nनवोदय विद्यालय, लखनऊ"]
+  }
+}

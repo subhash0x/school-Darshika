@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { Button, DatePicker, version, Layout, Menu, Breadcrumb, Row, Col , Form, Icon, Input, Card} from "antd";
 
 import Logout from "./logout"
-import LanguageToggle from "./LanguageToggle";
 import {Link} from 'react-router-dom'
-
+import Localix from "../localix";
 const {Header}=Layout
 
 
@@ -25,9 +24,9 @@ class CustomHeader extends Component{
         style={{ lineHeight: '64px' }} >
             <Menu.Item key="1" style={{ fontSize: '18px'}}> <Col sm={3}><b>Schoolदर्शिका</b></Col></Menu.Item>
             <Menu.Item style={{ fontSize: '16px' }} key="2"> <Col sm={3}>About Us </Col></Menu.Item>
-
+              <Menu.Item style={{  float: 'right'}} ><Localix/></Menu.Item>
                 <Menu.Item style={{ fontSize: '16px' , float: 'right'}} key="3">
-                <LanguageToggle/>
+                <Logout/>
             </Menu.Item>
 
       </Menu>

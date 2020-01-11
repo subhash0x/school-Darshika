@@ -2,49 +2,17 @@ import React, { Component } from 'react';
 import {Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete,} from 'antd';
 import CustomFooter from "./footer"
 import CustomHeader from "./header";
+import { data } from './data.js';
 
 const { Option } = Select;
 const AutoCompleteOption = AutoComplete.Option;
 
-const residences = [
-  {
-    value: 'zhejiang',
-    label: 'Zhejiang',
-    children: [
-      {
-        value: 'hangzhou',
-        label: 'Hangzhou',
-        children: [
-          {
-            value: 'xihu',
-            label: 'West Lake',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    value: 'jiangsu',
-    label: 'Jiangsu',
-    children: [
-      {
-        value: 'nanjing',
-        label: 'Nanjing',
-        children: [
-          {
-            value: 'zhonghuamen',
-            label: 'Zhong Hua Men',
-          },
-        ],
-      },
-    ],
-  },
-];
 
 class signup extends React.Component {
   state = {
     confirmDirty: false,
     autoCompleteResult: [],
+
   };
 
   handleSubmit = e => {
@@ -81,6 +49,9 @@ class signup extends React.Component {
 
 
   render() {
+
+     data.setLanguage(this.state.language);
+
 
 
     const { getFieldDecorator } = this.props.form;
@@ -135,7 +106,7 @@ class signup extends React.Component {
  <div className="container" style={{position:'relative', margin:'50px', backgroundColor:'rgb(240,240,240)', padding: '30px', borderRadius:'5px'}}>
 
         <Form {...formItemLayout} onSubmit={this.handleSubmit}>
-             <Form.Item label='Name'>
+             <Form.Item label={data.name}>
 
           <Input />
         </Form.Item>
