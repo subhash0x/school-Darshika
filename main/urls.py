@@ -8,6 +8,8 @@ router.register('schools', SchoolViewSet)
 router.register('notifications', NotificationViewSet)
 router.register('subscriptions', SubscriptionViewSet)
 router.register('feedbacks', FeedbackViewSet)
+router.register('images', ImageUploadViewSet)
+router.register('amenities', AmenityViewSet)
 
 
 urlpatterns = [

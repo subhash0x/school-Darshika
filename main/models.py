@@ -56,20 +56,30 @@ class Amenity(models.Model):
 class FeedbackAmenityScore(models.Model):
     amenity = models.ForeignKey('Amenity', on_delete=models.CASCADE)
     score = models.FloatField(default=0)
-    feedback = models.ForeignKey('Feedback', on_delete=models.CASCADE)
+    feedback = models.ForeignKey('Feedback', on_delete=models.CASCADE, related_name='scores')
 
 
 # Average over feedback scores
 class SchoolAmenityScore(models.Model):
     amenity = models.ForeignKey('Amenity', on_delete=models.CASCADE)
     score = models.FloatField(default=5)
-    school = models.ForeignKey('School', on_delete=models.CASCADE)
+    school = models.ForeignKey('School', on_delete=models.CASCADE, related_name='scores')
+
+
+class ImageUpload(models.Model):
+    file = models.ImageField(null=True, blank=True, upload_to=helpers.PathAndRenameFile('uploads'))
+
+
+class FeedbackImage(models.Model):
+    image_upload = models.ForeignKey('ImageUpload', on_delete=models.CASCADE)
+    feedback = models.ForeignKey('Feedback', on_delete=models.CASCADE, related_name='images')
 
 
 class Feedback(models.Model):
     created_on = models.DateTimeField(default=timezone.now)
     owner = models.ForeignKey('User', on_delete=models.CASCADE)
     school = models.ForeignKey('School', on_delete=models.CASCADE)
+    description = models.TextField(blank=True, null=True)
 
 
 class Subscription(models.Model):

@@ -40,3 +40,16 @@ class FeedbackViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
         return Response(serializer.data)
+
+
+class ImageUploadViewSet(viewsets.ModelViewSet):
+    queryset = ImageUpload.objects.all()
+    serializer_class = ImageUploadSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+
+class AmenityViewSet(viewsets.ModelViewSet):
+    queryset = Amenity.objects.all()
+    serializer_class = AmenitySerializer
+    http_method_names = ('get',)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
