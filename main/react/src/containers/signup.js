@@ -138,14 +138,8 @@ class signup extends React.Component {
 
 
     return (
-    <div>
-
-        <CustomHeader/>
-        <Row>
-         <Col sm={9}  style={{ display: 'block',  padding: '10px'}}>
- <div className="container" style={{position:'relative', margin:'50px', backgroundColor:'rgb(240,240,240)', padding: '30px', borderRadius:'5px'}}>
-
         <Form {...formItemLayout} onSubmit={this.handleSubmit}>
+            <center><h2>Join now to be heard and contribute</h2></center>
              <Form.Item label="Name">
 
           <Input />
@@ -171,26 +165,10 @@ class signup extends React.Component {
               {
                 required: true,
                 message: 'Please input your password!',
-              },
-              // {
-              //   validator: this.validateToNextPassword,
-              // },
+              }
             ],
           })(<Input.Password />)}
         </Form.Item>
-        {/*<Form.Item label="Confirm Password" hasFeedback>*/}
-        {/*  {getFieldDecorator('confirm', {*/}
-        {/*    rules: [*/}
-        {/*      {*/}
-        {/*        required: true,*/}
-        {/*        message: 'Please confirm your password!',*/}
-        {/*      },*/}
-        {/*      {*/}
-        {/*        validator: this.compareToFirstPassword,*/}
-        {/*      },*/}
-        {/*    ],*/}
-        {/*  })(<Input.Password onBlur={this.handleConfirmBlur} />)}*/}
-        {/*</Form.Item>*/}
 
 
         <Form.Item label="Phone Number">
@@ -202,7 +180,7 @@ class signup extends React.Component {
 
 
  <Form.Item label="Adhar Number">
-          {getFieldDecorator('Adhar', {
+          {getFieldDecorator('aadhaar', {
             rules: [{ required: true, message: 'Please input your Adhar number!' }],
           })(<Input maxLength={12} style={{ width: '100%' }} />)}
         </Form.Item>
@@ -214,7 +192,7 @@ class signup extends React.Component {
             valuePropName: 'checked',
           })(
             <Checkbox>
-              NGO
+              Check if you registering as an NGO?
             </Checkbox>,
           )}
         </Form.Item>
@@ -224,21 +202,11 @@ class signup extends React.Component {
           </Button>
         </Form.Item>
       </Form>
-      </div>
-        </Col>
-        </Row>
-        <Row>
-
-         <CustomFooter/>
-</Row>
-    </div>
-
-
 
     );
   }
 }
 
-const WrappedRegistrationForm = Form.create({ name: 'register' })(signup);
+const SignupForm = Form.create({ name: 'register' })(signup);
 
- export default WrappedRegistrationForm;
+ export default SignupForm;
