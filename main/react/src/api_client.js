@@ -18,14 +18,16 @@ axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
 class APIClient{
 
-    static fetch = (url, params, headers = {}) => APIClient.request(url, params, 'get');
-    static post = (url, params, headers = {}) => APIClient.request(url, params, 'post');
-    static request = (url, params, headers, method) => {
+    static fetch = (url, params, headers = {}) => APIClient.request(url, params, null,'get', headers);
+    static post = (url, params, headers = {}) => APIClient.request(url, {}, params, 'post', headers);
+    static request = (url, params, data, method, headers) => {
         return axios({
             method: method,
             url: url,
-            data: params,
+            data: data,
+            params: params,
             CORS: true,
+            headers: headers
         });
     };
 
