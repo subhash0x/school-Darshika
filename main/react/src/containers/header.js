@@ -11,11 +11,9 @@ const {Header}=Layout
 
 class CustomHeader extends Component{
 
-
-
     render(){
 
-    return(<Header className="header" >
+    return (<Header className="header" >
       <div className="logo" />
 
         <Menu
@@ -26,17 +24,19 @@ class CustomHeader extends Component{
             <Menu.Item key="1" style={{ fontSize: '18px'}}> <Col sm={3}><b>Schoolदर्शिका</b></Col></Menu.Item>
             <Menu.Item style={{ fontSize: '16px' }} key="2"> <Col sm={3}>About Us </Col></Menu.Item>
 
-                <Menu.Item style={{ fontSize: '16px' , float: 'right'}} key="3">
+
+            <Menu.Item style={{ fontSize: '16px' , float: 'right'}} key="3">
+
+
+                {/*<Logout/>*/}
+
                 <LanguageToggle/>
             </Menu.Item>
 
       </Menu>
-
     </Header>);
 
     }
-
-
 
  }
 

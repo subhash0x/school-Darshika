@@ -1,12 +1,14 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import Login from './containers/Login';
+import Home from './containers/Home';
 import SchoolsList from './containers/SchoolsList'
 import signup from './containers/signup';
 import TestComponent from './containers/TestComponent';
 import SchoolPage from './containers/SchoolPage'
 import Logout from "./containers/logout";
 import greetings from "./translations/global.json";
+import SchoolMap from "./containers/SchoolMap"
+import SignupContainer from "./containers/SignupContainer"
 
 export const BASE_PATH = '/app';
 
@@ -18,7 +20,6 @@ const BaseRouter = () => (
 		<Route exact path={`${BASE_PATH}/signup`} component={signup} />
 		<Route exact path={`${BASE_PATH}/login/schoolpage`} component={SchoolPage} />
 		<Route exact path={`${BASE_PATH}/logout`} component={Logout} />
-
 	</div>
 );
 

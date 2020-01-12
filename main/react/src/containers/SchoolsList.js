@@ -10,6 +10,11 @@ import './capturevideo.css';
 import TestComponent from './TestComponent';
 import SchoolComponent from "./SchoolContainer";
 import APIClient from "../api_client"
+import CustomHeader from "./header";
+import SchoolListHeader from "./SchoolListHeader";
+import SchoolSideNav from "./SchoolSideNav";
+import SchoolMap from "./SchoolMap";
+import CustomFooter from "./footer"
 
 
 let videoConstraints = {
@@ -28,7 +33,10 @@ class SchoolsList extends Component {
 		this.state = {
 			showTest: false,
 			schools: [],
-			location: null
+			location: null,
+			isSchoolsLoading: true,
+			amenityFilter: null,
+			showMap: true
 		};
 	}
 
@@ -39,9 +47,8 @@ class SchoolsList extends Component {
 	componentDidUpdate(prevProps, prevState){
 		if(prevState.location == null && this.state.location != null){
 			this.loadSchools();
-			this.loadAmenities();
-			this.loadFeedbacks(1);
 		}
+
 	}
 
 
@@ -54,23 +61,6 @@ class SchoolsList extends Component {
 		});
 
 	};
-
-	loadAmenities = () => {
-		APIClient.getAmenities({}).then((response) => {
-			console.log(response.data);
-		}).catch((error) => {
-			console.log(error);
-		});
-	};
-
-	loadFeedbacks = (schoolId) => {
-		APIClient.getFeedbacks({school: schoolId}).then((response) => {
-			console.log(response.data);
-		}).catch((error) => {
-			console.log(error);
-		})
-	};
-
 
 	loadLocation = () => {
 		const self = this;
@@ -87,9 +77,16 @@ class SchoolsList extends Component {
 
 
 	loadSchools = (event) => {
+		if(this.state.location == null)
+			return;
+		this.setState({
+			isSchoolsLoading: true
+		});
 		const self = this;
-		let params = {lat: this.state.location.lat, lng: this.state.location.lng};
-		APIClient.getSchools(params).then(function (response) {
+        let params = {lat: this.state.location.lat, lng: this.state.location.lng};
+        if(self.state.amenityFilter != null)
+        	params.amenity = self.state.amenityFilter;
+        APIClient.getSchools(params).then(function (response) {
 				let data = response.data;
 				console.log(data);
 				const { schools } = self.state;
@@ -97,28 +94,70 @@ class SchoolsList extends Component {
 					schools.push(data[i]);
 				}
 				self.setState({
-					schools: schools
+					schools: schools,
+					isSchoolsLoading: false
 				});
 			}
-		).catch(function (error) {
+        ).catch(function (error) {
             console.log(error);
         });
+	};
+
+	handleAmenityChange = (value) => {
+		const self = this;
+		this.setState({
+			schools: [],
+			amenityFilter: value
+		}, () => {
+			console.log("amenity filter " + this.state.amenityFilter);
+			self.loadSchools();
+		});
+	};
+
+	handleMapToggle = (showMap) => {
+		this.setState({
+			showMap: showMap
+		});
 	};
 
 	render() {
 
 		return (
-	    	<div className="layout" style={{backgroundColor:"white",marginTop:"10px"}}>
-		      	<h1>Hello Diddi!</h1>
+			<div className="layout" style={{backgroundColor:"white",marginTop:"10px"}}>
+				<SchoolListHeader handleMapToggle={this.handleMapToggle}/>
 				{
-					this.state.schools.map((value, index) => {
-						console.log(value);
-						return <SchoolComponent key={value.id} school={value}></SchoolComponent>
-					})
+					this.state.showMap ? <SchoolMap/> :
+						<div>
+							<SchoolSideNav handleChange={this.handleAmenityChange}/>
+							{
+							(this.state.location != null && !this.state.isSchoolsLoading)?
+									<div>
+									<Col sm={15}  style={{justifyContent:'left', alignItems:'left', display: 'block',  padding: '10px'}}>
+									{
+										this.state.schools.map((value, index) => {
+											console.log(value);
+											return(
+												<SchoolComponent key={value.id} school={value}></SchoolComponent>
+											);
+										})
+									}
+									</Col></div> :
+									<Col sm={15}>
+										<br/>
+										<br/>
+										<br/>
+										<center>
+											<Spin/>
+											<h4>Loading schools near you</h4>
+										</center>
+									</Col>
+
+						}
+						</div>
 				}
-				<Input id="school"/>
-				<Button type="primary" onClick={this.handleClick}>Add School</Button>
-	        </div>
+			</div>
+
+
 	    );
     }
 }

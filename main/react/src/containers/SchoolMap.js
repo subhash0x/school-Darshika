@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component,useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Button, Row, Col, Upload, Input, message, Spin, Icon } from 'antd';
@@ -10,6 +10,16 @@ import './capturevideo.css';
 import TestComponent from './TestComponent';
 import SchoolComponent from "./SchoolContainer";
 import APIClient from "../api_client"
+import Utils from "../utils";
+
+
+import {
+  withGoogleMap,
+  withScriptjs,
+  GoogleMap,
+  Marker,
+  InfoWindow
+} from "react-google-maps";
 
 
 let videoConstraints = {
@@ -21,7 +31,8 @@ let videoConstraints = {
 
 const antIcon = <Icon type="loading" style={{ fontSize: 24, color: 'white' }} spin />;
 
-class SchoolsList extends Component {
+
+class SchoolMap extends Component {
 
 	constructor(props) {
 		super(props);
@@ -87,22 +98,76 @@ class SchoolsList extends Component {
         });
 	};
 
+	Map = () => {
+		const [selectedSchool, setSelectedSchool] = useState(null);
+		const self = this;
+		return (
+			<GoogleMap
+				 defaultZoom ={10}
+				 defaultCenter={{lat: self.state.location.lat, lng: self.state.location.lng}}
+
+			>
+				{
+					self.state.schools.map(school =>
+						(<Marker
+                                key={school.id}
+                                position={{lat:school.location.lat,
+                                    lng:school.location.lng}}
+                                onClick={()=>{
+                                    setSelectedSchool(school);
+                                }}
+                            />
+                    ))
+				}
+
+				{ selectedSchool && (
+					<InfoWindow
+						position={{lat:selectedSchool.location.lat,
+										lng:selectedSchool.location.lng
+						}}
+						onCloseClick={()=>{
+							setSelectedSchool(null)
+						}}
+					>
+						<div><a href={"http://localhost:8000/app/schools/".concat(selectedSchool.id)}>{selectedSchool.name}</a></div>
+					</InfoWindow>
+				)}
+			</GoogleMap>
+		);
+}	;
+
 	render() {
 
+		const WrappedMap = withScriptjs(withGoogleMap(this.Map));
+
+
 		return (
-	    	<div className="layout" style={{backgroundColor:"white",marginTop:"10px"}}>
-		      	<h1>Hello Diddi!</h1>
+	    	<div style={{width: '100vw', height:'100vh'}}>
 				{
 					this.state.schools.map((value, index) => {
 						console.log(value);
 						return <SchoolComponent key={value.id} school={value}></SchoolComponent>
 					})
+
+
 				}
+
 				<Input id="school"/>
 				<Button type="primary" onClick={this.handleClick}>Add School</Button>
-	        </div>
+
+                {
+                	this.state.location != null ?
+                    <WrappedMap
+                        googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyASIwsQU8_-Ra5taPxlZP3GtWtgnLOJqbI`}
+                        loadingElement={<div style={{height: `100%`}}/>}
+                        containerElement={<div style={{height: `100%`}}/>}
+                        mapElement={<div style={{height: `100%`}}/>}
+                    />
+                    : null
+                }
+            </div>
 	    );
     }
 }
 
-export default SchoolsList;
+export default SchoolMap;

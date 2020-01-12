@@ -14,10 +14,10 @@ class LoginForm extends Component {
       if (!err) {
           APIClient.login(values.email, values.password).then((response) => {
               let token = response.data.token;
-              axios.defaults.headers.common['Authorization'] = token; // for all requests
+              axios.defaults.headers.common['Authorization'] = 'token ' + token; // for all requests
               Utils.setCookie("auth", token, 7);
               message.info("Logged in successfully!");
-              window.location = "/app";
+              window.location = "/app/schools";
           }).catch((error) => {
               console.log(error);
               message.error("Couldn't login. Please try again!");
@@ -72,7 +72,7 @@ class LoginForm extends Component {
            <Translate id="login.login"> Log in</Translate>
           </Button>
             <br></br>
-            <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>  Or   <a href=""><Translate id="login.register">register now!</Translate></a></div>
+            <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}><center>Don't have an account? <a href="/app/signup">Register</a></center></div>
         </Form.Item>
       </Form>
                 </div>
