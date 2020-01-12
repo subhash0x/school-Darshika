@@ -30,7 +30,7 @@ class CustomHeader extends Component{
             <Menu.Item style={{ fontSize: '16px' , float: 'right'}} key="3">
 
 
-                <Logout/>
+                {/*<Logout/>*/}
 
             </Menu.Item>
 

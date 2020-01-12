@@ -13,7 +13,7 @@ class LoginForm extends Component {
       if (!err) {
           APIClient.login(values.email, values.password).then((response) => {
               let token = response.data.token;
-              axios.defaults.headers.common['Authorization'] = token; // for all requests
+              axios.defaults.headers.common['Authorization'] = 'token ' + token; // for all requests
               Utils.setCookie("auth", token, 7);
               message.info("Logged in successfully!");
               window.location = "/app";
