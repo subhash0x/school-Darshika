@@ -25,39 +25,6 @@ class LocationSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class SchoolAmenityScoreSerializer(serializers.ModelSerializer):
-
-    amenity = serializers.SerializerMethodField(read_only=True)
-    amenity_id = serializers.IntegerField(write_only=True)
-
-    class Meta:
-        model = SchoolAmenityScore
-        fields = '__all__'
-
-    def get_amenity(self, score):
-        return AmenitySerializer(score.amenity, context=self.context).data
-
-
-class SchoolSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = School
-        fields = '__all__'
-
-    scores = SchoolAmenityScoreSerializer(many=True, read_only=True)
-    subscriptions = serializers.SerializerMethodField()
-    location = serializers.SerializerMethodField()
-
-    def get_subscriptions(self, school):
-        return SubscriptionSerializer(school.subscriptions, many=True, context=self.context).data
-
-    def get_location(self, school):
-        return LocationSerializer(school.location, context=self.context).data
-
-    def create(self, validated_data):
-        return Subscription.objects.create(owner=validated_data.pop('owner'), **validated_data)
-
-
 class ImageUploadSerializer(serializers.ModelSerializer):
     class Meta:
         model = ImageUpload
@@ -69,9 +36,6 @@ class AmenitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Amenity
         fields = '__all__'
-
-
-
 
 
 class FeedbackAmenityScoreSerializer(serializers.ModelSerializer):
@@ -97,6 +61,19 @@ class FeedbackImageSerializer(serializers.ModelSerializer):
         model = FeedbackImage
         fields = '__all__'
         extra_kwargs = {'feedback': {'required': False}}
+
+
+class SchoolAmenityScoreSerializer(serializers.ModelSerializer):
+
+    amenity = serializers.SerializerMethodField(read_only=True)
+    amenity_id = serializers.IntegerField(write_only=True)
+
+    class Meta:
+        model = SchoolAmenityScore
+        fields = '__all__'
+
+    def get_amenity(self, score):
+        return AmenitySerializer(score.amenity, context=self.context).data
 
 
 class FeedbackSerializer(serializers.ModelSerializer):
@@ -145,6 +122,30 @@ class FeedbackSerializer(serializers.ModelSerializer):
             sscore.save()
 
         return feedback
+
+
+class SchoolSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = School
+        fields = '__all__'
+
+    scores = SchoolAmenityScoreSerializer(many=True, read_only=True)
+    subscriptions = serializers.SerializerMethodField()
+    location = serializers.SerializerMethodField()
+    feedbacks = FeedbackSerializer(many=True)
+
+    def get_subscriptions(self, school):
+        return SubscriptionSerializer(school.subscriptions, many=True, context=self.context).data
+
+    def get_location(self, school):
+        return LocationSerializer(school.location, context=self.context).data
+
+    def create(self, validated_data):
+        return Subscription.objects.create(owner=validated_data.pop('owner'), **validated_data)
+
+
+
 
 
 class NotificationSerializer(serializers.ModelSerializer):

@@ -12,6 +12,7 @@ export const BASE_PATH = '/app';
 
 const BaseRouter = () => (
 	<div>
+		<Route exact path={`${BASE_PATH}/schools/:schoolId`} component={SchoolPage} />
 		<Route exact path={`${BASE_PATH}/schools`} component={SchoolsList} />
 		<Route exact path={`${BASE_PATH}/login`} component={Login} />
 		<Route exact path={`${BASE_PATH}/test`} component={TestComponent} />

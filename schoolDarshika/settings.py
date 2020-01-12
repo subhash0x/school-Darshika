@@ -108,16 +108,16 @@ DATABASES = {
     }
 }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'n05UBVmJwq',
-        'USER': 'n05UBVmJwq',
-        'PASSWORD': '2wR4iso2Co',
-        'HOST': 'remotemysql.com',
-        'PORT': '3306',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'n05UBVmJwq',
+#         'USER': 'n05UBVmJwq',
+#         'PASSWORD': '2wR4iso2Co',
+#         'HOST': 'remotemysql.com',
+#         'PORT': '3306',
+#     }
+# }
 
 
 # Password validation
