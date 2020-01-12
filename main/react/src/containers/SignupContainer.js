@@ -21,12 +21,12 @@ const { SubMenu } = Menu;
 const { Header, Content, Footer} = Layout;
 
 
-class Home extends Component {
+class SignupContainer extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            showSignup : false
+            showSignup : true
         }
     }
 
@@ -188,4 +188,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default SignupContainer;

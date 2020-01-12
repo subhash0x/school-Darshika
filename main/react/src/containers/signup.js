@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete,} from 'antd';
+import {Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete} from 'antd';
 import CustomFooter from "./footer"
 import CustomHeader from "./header";
 import APIClient from "../api_client";
@@ -51,17 +51,17 @@ class signup extends React.Component {
 
   handleSubmit = e => {
       e.preventDefault();
+      if(e.target.getAttribute('id') === 'login')
+          return;
       this.props.form.validateFieldsAndScroll((err, values) => {
           if (!err) {
               APIClient.signup(values).then((response) => {
                   message.info("Signed up successfully!");
-                  window.location = "/login";
+                  window.location = "/app/login";
               }).catch((error) => {
                   message.error("Couldn't sign up. Please try again!");
                   console.log(error);
-
-                  ;
-                  //console.log('Received values of form: ', values);
+                  console.log('Received values of form: ', values);
               });
           }
       });
@@ -71,25 +71,6 @@ class signup extends React.Component {
     const { value } = e.target;
     this.setState({ confirmDirty: this.state.confirmDirty || !!value });
   };
-
-  compareToFirstPassword = (rule, value, callback) => {
-    const { form } = this.props;
-    if (value && value !== form.getFieldValue('password')) {
-      callback('Two passwords that you enter is inconsistent!');
-    } else {
-      callback();
-    }
-  };
-
-  // validateToNextPassword = (rule, value, callback) => {
-  //   const { form } = this.props;
-  //   if (value && this.state.confirmDirty) {
-  //     form.validateFields(['confirm'], { force: true });
-  //   }
-  //   callback();
-  // };
-
-
 
   render() {
 
@@ -140,9 +121,16 @@ class signup extends React.Component {
     return (
         <Form {...formItemLayout} onSubmit={this.handleSubmit}>
             <center><h2>Join now to be heard and contribute</h2></center>
-             <Form.Item label="Name">
 
-          <Input />
+          <Form.Item label="Name">
+          {getFieldDecorator('name', {
+            rules: [
+              {
+                required: true,
+                message: 'Please input your full name!',
+              },
+            ],
+          })(<Input />)}
         </Form.Item>
 
         <Form.Item label="E-mail">
@@ -188,7 +176,7 @@ class signup extends React.Component {
 
 
         <Form.Item {...tailFormItemLayout}>
-          {getFieldDecorator('agreement', {
+          {getFieldDecorator('is_ngo', {
             valuePropName: 'checked',
           })(
             <Checkbox>
@@ -199,8 +187,11 @@ class signup extends React.Component {
         <Form.Item {...tailFormItemLayout}>
           <Button type="primary" htmlType="submit">
             Register
-          </Button>
+          </Button>  <center>Already Registered? <a id="login" href="/app/">Login</a></center>
+
+
         </Form.Item>
+
       </Form>
 
     );

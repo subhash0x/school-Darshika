@@ -70,7 +70,7 @@ class LoginForm extends Component {
             Log in
           </Button>
             <br></br>
-          <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}> Or <a href="">register now!</a></div>
+            <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}><center>Don't have an account? <a href="/app/signup">Register</a></center></div>
         </Form.Item>
       </Form>
                 </div>

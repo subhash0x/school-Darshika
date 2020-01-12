@@ -8,7 +8,7 @@ class CustomFooter extends Component{
 
     render(){
 
-        return (<Footer> <div style={{ position:'relative', textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</div></Footer>);
+        return (<Footer> <div style={{ position:'relative', textAlign: 'center' }}>School Darshika ©2019 Hacked by <b>Super Cookie</b> for NEC - Digitalizing Rural Education</div></Footer>);
 
     }
 }
