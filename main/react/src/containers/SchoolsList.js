@@ -12,7 +12,9 @@ import SchoolComponent from "./SchoolContainer";
 import APIClient from "../api_client"
 import CustomHeader from "./header";
 import SchoolListHeader from "./SchoolListHeader";
-import SchoolSideNav from "./SchoolSideNav"
+import SchoolSideNav from "./SchoolSideNav";
+import SchoolMap from "./SchoolMap";
+import CustomFooter from "./footer"
 
 
 let videoConstraints = {
@@ -33,7 +35,8 @@ class SchoolsList extends Component {
 			schools: [],
 			location: null,
 			isSchoolsLoading: true,
-			amenityFilter: null
+			amenityFilter: null,
+			showMap: true
 		};
 	}
 
@@ -111,37 +114,49 @@ class SchoolsList extends Component {
 		});
 	};
 
+	handleMapToggle = (showMap) => {
+		this.setState({
+			showMap: showMap
+		});
+	};
+
 	render() {
 
 		return (
 			<div className="layout" style={{backgroundColor:"white",marginTop:"10px"}}>
-				<SchoolListHeader/>
-				<SchoolSideNav handleChange={this.handleAmenityChange}/>
-			{
-				(this.state.location != null && !this.state.isSchoolsLoading)?
+				<SchoolListHeader handleMapToggle={this.handleMapToggle}/>
+				{
+					this.state.showMap ? <SchoolMap/> :
 						<div>
-						<Col sm={15}  style={{justifyContent:'left', alignItems:'left', display: 'block',  padding: '10px'}}>
-						{
-							this.state.schools.map((value, index) => {
-								console.log(value);
-								return(
-									<SchoolComponent key={value.id} school={value}></SchoolComponent>
-								);
-							})
-						}
-						</Col></div> :
-						<Col sm={15}>
-							<br/>
-							<br/>
-							<br/>
-							<center>
-								<Spin/>
-								<h4>Loading schools near you</h4>
-							</center>
-						</Col>
+							<SchoolSideNav handleChange={this.handleAmenityChange}/>
+							{
+							(this.state.location != null && !this.state.isSchoolsLoading)?
+									<div>
+									<Col sm={15}  style={{justifyContent:'left', alignItems:'left', display: 'block',  padding: '10px'}}>
+									{
+										this.state.schools.map((value, index) => {
+											console.log(value);
+											return(
+												<SchoolComponent key={value.id} school={value}></SchoolComponent>
+											);
+										})
+									}
+									</Col></div> :
+									<Col sm={15}>
+										<br/>
+										<br/>
+										<br/>
+										<center>
+											<Spin/>
+											<h4>Loading schools near you</h4>
+										</center>
+									</Col>
 
-			}
+						}
+						</div>
+				}
 			</div>
+
 
 	    );
     }

@@ -16,7 +16,7 @@ class LoginForm extends Component {
               axios.defaults.headers.common['Authorization'] = 'token ' + token; // for all requests
               Utils.setCookie("auth", token, 7);
               message.info("Logged in successfully!");
-              window.location = "/app";
+              window.location = "/app/schoolsS";
           }).catch((error) => {
               console.log(error);
               message.error("Couldn't login. Please try again!");
